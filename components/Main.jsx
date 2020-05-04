@@ -82,6 +82,7 @@ Main.propTypes = {
   article: PropTypes.string,
   articleTimeout: PropTypes.bool,
   onCloseArticle: PropTypes.func,
+  onSwitchArticle: PropTypes.func,
   timeout: PropTypes.bool
 }
 
