@@ -1,6 +1,8 @@
 import "../styles/main.scss";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
-export default App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
-}
+};
+
+export default App;
