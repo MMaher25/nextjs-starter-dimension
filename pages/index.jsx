@@ -16,6 +16,7 @@ class IndexPage extends React.Component {
         }
         this.handleOpenArticle = this.handleOpenArticle.bind(this)
         this.handleCloseArticle = this.handleCloseArticle.bind(this)
+        this.handleSwitchArticle = this.handleSwitchArticle.bind(this)
     }
 
     componentDidMount() {
@@ -67,6 +68,40 @@ class IndexPage extends React.Component {
             })
         }, 350)
     }
+    
+    handleSwitchArticle(article) {
+        this.setState({
+            articleTimeout: !this.state.articleTimeout
+        })
+    
+        setTimeout(() => {
+            this.setState({
+                timeout: !this.state.timeout
+            })
+        }, 325)
+    
+        setTimeout(() => {
+            this.setState({
+                isArticleVisible: !this.state.isArticleVisible,
+                article: ""
+            })
+        }, 350)
+
+        setTimeout(() => {
+            this.setState({
+                isArticleVisible: !this.state.isArticleVisible,
+                article,
+                timeout: !this.state.timeout,
+            });
+        }, 650);
+
+        setTimeout(() => {
+            this.setState({
+                articleTimeout: !this.state.articleTimeout,
+            });
+        }, 700);
+    }
+
     render() {
         return (
             <div className={`body ${this.state.loading} ${this.state.isArticleVisible ? "is-article-visible" : ""}`}>
@@ -84,6 +119,7 @@ class IndexPage extends React.Component {
                             articleTimeout={this.state.articleTimeout}
                             article={this.state.article}
                             onCloseArticle={this.handleCloseArticle}
+                            onSwitchArticle={this.handleSwitchArticle}
                         />
                         <Footer timeout={this.state.timeout} />
                     </div>
