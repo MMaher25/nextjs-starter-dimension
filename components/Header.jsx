@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGem } from "@fortawesome/free-regular-svg-icons";
 
-const Header = (props) => (
-    <header id="header" style={props.timeout ? {display: 'none'} : {}}>
+const Header = ({ timeout, onOpenArticle }) => (
+    <header id="header" style={timeout ? {display: 'none'} : {}}>
         <div className="logo">
             {/*<span className="icon fa-diamond"></span>*/}
             <FontAwesomeIcon icon={faGem} transform="grow-36" />
@@ -17,10 +17,10 @@ const Header = (props) => (
         </div>
         <nav>
             <ul>
-                <li><a onClick={() => {props.onOpenArticle('intro')}}>Intro</a></li>
-                <li><a onClick={() => {props.onOpenArticle('work')}}>Work</a></li>
-                <li><a onClick={() => {props.onOpenArticle('about')}}>About</a></li>
-                <li><a onClick={() => {props.onOpenArticle('contact')}}>Contact</a></li>
+                <li><a onClick={() => {onOpenArticle('intro')}}>Intro</a></li>
+                <li><a onClick={() => {onOpenArticle('work')}}>Work</a></li>
+                <li><a onClick={() => {onOpenArticle('about')}}>About</a></li>
+                <li><a onClick={() => {onOpenArticle('contact')}}>Contact</a></li>
             </ul>
         </nav>
     </header>
