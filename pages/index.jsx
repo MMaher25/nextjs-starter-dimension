@@ -76,8 +76,6 @@ class IndexPage extends React.Component {
                         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600,600i" rel="stylesheet" />
                     </Head>
 
-                    <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
-
                     <div id="wrapper">
                         <Header onOpenArticle={this.handleOpenArticle} timeout={this.state.timeout} />
                         <Main
