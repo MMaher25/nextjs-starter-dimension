@@ -1,134 +1,144 @@
-import Head from "next/head"
+import Head from "next/head";
 
-import Header from "../components/Header"
-import Main from "../components/Main"
-import Footer from "../components/Footer"
+import Header from "../components/Header";
+import Main from "../components/Main";
+import Footer from "../components/Footer";
 
 class IndexPage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isArticleVisible: false,
-            timeout: false,
-            articleTimeout: false,
-            article: "",
-            loading: "is-loading"
-        }
-        this.handleOpenArticle = this.handleOpenArticle.bind(this)
-        this.handleCloseArticle = this.handleCloseArticle.bind(this)
-        this.handleSwitchArticle = this.handleSwitchArticle.bind(this)
+  constructor(props) {
+    super(props);
+    this.state = {
+      isArticleVisible: false,
+      timeout: false,
+      articleTimeout: false,
+      article: "",
+      loading: "is-loading",
+    };
+    this.handleOpenArticle = this.handleOpenArticle.bind(this);
+    this.handleCloseArticle = this.handleCloseArticle.bind(this);
+    this.handleSwitchArticle = this.handleSwitchArticle.bind(this);
+  }
+
+  componentDidMount() {
+    this.timeoutId = setTimeout(() => {
+      this.setState({ loading: "" });
+    }, 100);
+  }
+
+  componentWillUnmount() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
     }
+  }
 
-    componentDidMount() {
-        this.timeoutId = setTimeout(() => {
-            this.setState({ loading: "" })
-        }, 100)
-    }
+  handleOpenArticle(article) {
+    this.setState({
+      isArticleVisible: !this.state.isArticleVisible,
+      article,
+    });
 
-    componentWillUnmount() {
-        if (this.timeoutId) {
-            clearTimeout(this.timeoutId)
-        }
-    }
+    setTimeout(() => {
+      this.setState({
+        timeout: !this.state.timeout,
+      });
+    }, 325);
 
-    handleOpenArticle(article) {
-        this.setState({
-            isArticleVisible: !this.state.isArticleVisible,
-            article
-        })
+    setTimeout(() => {
+      this.setState({
+        articleTimeout: !this.state.articleTimeout,
+      });
+    }, 350);
+  }
 
-        setTimeout(() => {
-            this.setState({
-                timeout: !this.state.timeout
-            })
-        }, 325)
+  handleCloseArticle() {
+    this.setState({
+      articleTimeout: !this.state.articleTimeout,
+    });
 
-        setTimeout(() => {
-            this.setState({
-                articleTimeout: !this.state.articleTimeout
-            })
-        }, 350)
-    }
+    setTimeout(() => {
+      this.setState({
+        timeout: !this.state.timeout,
+      });
+    }, 325);
 
-    handleCloseArticle() {
-        this.setState({
-            articleTimeout: !this.state.articleTimeout
-        })
+    setTimeout(() => {
+      this.setState({
+        isArticleVisible: !this.state.isArticleVisible,
+        article: "",
+      });
+    }, 350);
+  }
 
-        setTimeout(() => {
-            this.setState({
-                timeout: !this.state.timeout
-            })
-        }, 325)
+  handleSwitchArticle(article) {
+    this.setState({
+      articleTimeout: !this.state.articleTimeout,
+    });
 
-        setTimeout(() => {
-            this.setState({
-                isArticleVisible: !this.state.isArticleVisible,
-                article: ""
-            })
-        }, 350)
-    }
-    
-    handleSwitchArticle(article) {
-        this.setState({
-            articleTimeout: !this.state.articleTimeout
-        })
-    
-        setTimeout(() => {
-            this.setState({
-                timeout: !this.state.timeout
-            })
-        }, 325)
-    
-        setTimeout(() => {
-            this.setState({
-                isArticleVisible: !this.state.isArticleVisible,
-                article: ""
-            })
-        }, 350)
+    setTimeout(() => {
+      this.setState({
+        timeout: !this.state.timeout,
+      });
+    }, 325);
 
-        setTimeout(() => {
-            this.setState({
-                isArticleVisible: !this.state.isArticleVisible,
-                article,
-                timeout: !this.state.timeout,
-            });
-        }, 650);
+    setTimeout(() => {
+      this.setState({
+        isArticleVisible: !this.state.isArticleVisible,
+        article: "",
+      });
+    }, 350);
 
-        setTimeout(() => {
-            this.setState({
-                articleTimeout: !this.state.articleTimeout,
-            });
-        }, 700);
-    }
+    setTimeout(() => {
+      this.setState({
+        isArticleVisible: !this.state.isArticleVisible,
+        article,
+        timeout: !this.state.timeout,
+      });
+    }, 650);
 
-    render() {
-        return (
-            <div className={`body ${this.state.loading} ${this.state.isArticleVisible ? "is-article-visible" : ""}`}>
-                <div>
-                    <Head>
-                        <title>Next.js Starter</title>
-                        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600,600i" rel="stylesheet" />
-                    </Head>
+    setTimeout(() => {
+      this.setState({
+        articleTimeout: !this.state.articleTimeout,
+      });
+    }, 700);
+  }
 
-                    <div id="wrapper">
-                        <Header onOpenArticle={this.handleOpenArticle} timeout={this.state.timeout} />
-                        <Main
-                            isArticleVisible={this.state.isArticleVisible}
-                            timeout={this.state.timeout}
-                            articleTimeout={this.state.articleTimeout}
-                            article={this.state.article}
-                            onCloseArticle={this.handleCloseArticle}
-                            onSwitchArticle={this.handleSwitchArticle}
-                        />
-                        <Footer timeout={this.state.timeout} />
-                    </div>
+  render() {
+    return (
+      <div
+        className={`body ${this.state.loading} ${
+          this.state.isArticleVisible ? "is-article-visible" : ""
+        }`}
+      >
+        <div>
+          <Head>
+            <title>Next.js Starter</title>
+            <link
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600,600i"
+              rel="stylesheet"
+            />
+          </Head>
 
-                    <div id="bg" />
-                </div>
-            </div>
-        )
-    }
+          <div id="wrapper">
+            <Header
+              onOpenArticle={this.handleOpenArticle}
+              timeout={this.state.timeout}
+            />
+            <Main
+              isArticleVisible={this.state.isArticleVisible}
+              timeout={this.state.timeout}
+              articleTimeout={this.state.articleTimeout}
+              article={this.state.article}
+              onCloseArticle={this.handleCloseArticle}
+              onSwitchArticle={this.handleSwitchArticle}
+            />
+            <Footer timeout={this.state.timeout} />
+          </div>
+
+          <div id="bg" />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default IndexPage
+export default IndexPage;
